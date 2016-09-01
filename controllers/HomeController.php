@@ -21,12 +21,16 @@ class HomeController extends BaseController
         $comments = $this->model->getCommentsByPost($id);
         $this->commentsByPost = $comments;
 
-        $fullname = $this->model->getUsernameById($id);
-        $this->fullname = $fullname;
+
+        if ($this->isLoggedIn){
+
+            $fullname = $this->model->getUsernameById($_SESSION['user_id']);
+            $this->fullname = $fullname;
+        }
 
         if ($this->isPost){
-            $title = $_POST['comment_user'];
-            if (strlen($title) < 1){
+            $user = $_POST['comment_user'];
+            if (strlen($user) < 1){
                 $this->setValidationError("comment_user", "Username too short.");
             }
             $content = $_POST['comment_content'];
@@ -35,8 +39,7 @@ class HomeController extends BaseController
             }
 
             if ($this->formValid()){
-                $userId = $_SESSION['user_id'];
-                if ($this->model->createComment($title, $content, $userId, $id)){
+                if ($this->model->createComment($user, $content, $id)){
                     $this->addInfoMessage("Comment created.");
 
                     $comments = $this->model->getCommentsByPost($id);

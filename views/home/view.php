@@ -20,7 +20,7 @@
     <h3>Leave your comment</h3>
     <form method="post">
         <div>Your name:</div>
-        <input type="text" name="comment_user" value="<?= htmlentities($this->fullname['full_name']); ?>">
+        <input type="text" name="comment_user" <?php if (isset($this->fullname['full_name'])) { ?> value="<?= htmlentities($this->fullname['full_name']); ?>" <?php } ?>>
         <div>Content:</div>
         <textarea rows="10" name="comment_content"></textarea>
         <div><input type="submit" value="Post comment"></div>

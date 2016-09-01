@@ -42,12 +42,12 @@ class HomeModel extends BaseModel
         return $result;
     }
 
-    public function createComment(string $user, string $content, int $user_id, int $posts_id) :bool
+    public function createComment(string $user, string $content, int $posts_id) :bool
     {
         $statement = self::$db->prepare(
-            "INSERT INTO comments(user, content, user_id, posts_id) VALUES (?, ?, ?, ?)"
+            "INSERT INTO comments(user, content, posts_id) VALUES (?, ?, ?)"
         );
-        $statement->bind_param("ssii", $user, $content, $user_id, $posts_id);
+        $statement->bind_param("ssi", $user, $content, $posts_id);
         $statement->execute();
         return $statement->affected_rows == 1;
     }
