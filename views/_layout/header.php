@@ -15,6 +15,7 @@
     <a href="<?=APP_ROOT?>/">Home</a>
     <?php if ($this->isLoggedIn) : ?>
         <a href="<?=APP_ROOT?>/posts">Posts</a>
+        <a href="<?=APP_ROOT?>/comments">Comments</a>
         <a href="<?=APP_ROOT?>/posts/create">Create Post</a>
         <a href="<?=APP_ROOT?>/users">Users</a>
     <?php else: ?>

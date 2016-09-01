@@ -14,14 +14,14 @@ class PostsModel extends HomeModel
     }
 
     function getById(int $id)
-{
-    $statement = self::$db->prepare(
-        "SELECT * FROM posts WHERE id = ?");
-    $statement->bind_param("i", $id);
-    $statement->execute();
-    $result = $statement->get_result()->fetch_assoc();
-    return $result;
-}
+    {
+        $statement = self::$db->prepare(
+            "SELECT * FROM posts WHERE id = ?");
+        $statement->bind_param("i", $id);
+        $statement->execute();
+        $result = $statement->get_result()->fetch_assoc();
+        return $result;
+    }
 
     public function create(string $title, string $content, int $user_id) :bool
     {

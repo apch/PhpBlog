@@ -9,4 +9,18 @@
         <?= htmlentities($this->post['full_name']); ?>
     </p>
     <p><?= $this->post['content']; ?></p>
+
+    <h2>Comments</h2>
+    <?php foreach ($this->comments as $comm) : ?>
+        <a href="<?=APP_ROOT?>/home/view/<?=$comm['id']?>"><?= htmlentities($comm['title']); ?></a>
+    <?php endforeach; ?>
+
+    <div>Leave comment</div>
+    <form method="post">
+        <div>Title:</div>
+        <input type="text" name="comment_title">
+        <div>Content:</div>
+        <textarea rows="10" name="comment_content"></textarea>
+        <div><input type="submit" value="Leave comment"></div>
+    </form>
 </main>

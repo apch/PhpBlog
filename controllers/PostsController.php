@@ -72,7 +72,7 @@ class PostsController extends BaseController
             }
 
             $date = $_POST['post_date'];
-            $dateRegex = '/^d{2,4}-\d{1,2}-\d{1,2}( \d{1,2}:\d{1,2}(:\d{1,2})?)?$/';
+            $dateRegex = '/^\d{2,4}-\d{1,2}-\d{1,2}( \d{1,2}:\d{1,2}(:\d{1,2})?)?$/';
             if (!preg_match($dateRegex, $date)){
                 $this->setValidationError("post_date", "Invalid date!");
             }
