@@ -72,6 +72,7 @@ class PostsController extends BaseController
             }
 
             $date = $_POST['post_date'];
+
             $dateRegex = '/^\d{2,4}-\d{1,2}-\d{1,2}( \d{1,2}:\d{1,2}(:\d{1,2})?)?$/';
             if (!preg_match($dateRegex, $date)){
                 $this->setValidationError("post_date", "Invalid date!");
@@ -95,7 +96,7 @@ class PostsController extends BaseController
             }
 
         }
-        $post = $this->model->getPostById($id);
+        $post = $this->model->getById($id);
         if (!$post){
             $this->addErrorMessage("Post does not exist.");
             $this->redirect("posts");

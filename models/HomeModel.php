@@ -33,12 +33,21 @@ class HomeModel extends BaseModel
         return $result;
     }
 
-    public function createComment(string $title, string $content, int $user_id, int $posts_id) :bool
+    function getUsernameById(int $id){
+        $statement = self::$db->prepare(
+            "SELECT full_name FROM users WHERE id = ?");
+        $statement->bind_param("i", $id);
+        $statement->execute();
+        $result = $statement->get_result()->fetch_assoc();
+        return $result;
+    }
+
+    public function createComment(string $user, string $content, int $user_id, int $posts_id) :bool
     {
         $statement = self::$db->prepare(
-            "INSERT INTO comments(title, content, user_id, posts_id) VALUES (?, ?, ?, ?)"
+            "INSERT INTO comments(user, content, user_id, posts_id) VALUES (?, ?, ?, ?)"
         );
-        $statement->bind_param("ssii", $title, $content, $user_id, $posts_id);
+        $statement->bind_param("ssii", $user, $content, $user_id, $posts_id);
         $statement->execute();
         return $statement->affected_rows == 1;
     }

@@ -12,15 +12,17 @@
 
     <h2>Comments</h2>
     <?php foreach ($this->commentsByPost as $comment) : ?>
-        <a href="<?=APP_ROOT?>/home/view/<?=$comment['id']?>"><?= htmlentities($comment['title']); ?></a>
+        <p><i>Posted on</i> <?= htmlentities($comment['date']); ?> <i>by</i> <?= htmlentities($comment['user']); ?></p>
+        <p><?php echo $comment['content']; ?></p>
+        <p>&nbsp;</p>
     <?php endforeach; ?>
 
-    <div>Leave comment</div>
+    <h3>Leave your comment</h3>
     <form method="post">
-        <div>Title:</div>
-        <input type="text" name="comment_title">
+        <div>Your name:</div>
+        <input type="text" name="comment_user" value="<?= htmlentities($this->fullname['full_name']); ?>">
         <div>Content:</div>
         <textarea rows="10" name="comment_content"></textarea>
-        <div><input type="submit" value="Leave comment"></div>
+        <div><input type="submit" value="Post comment"></div>
     </form>
 </main>

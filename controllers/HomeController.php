@@ -21,10 +21,13 @@ class HomeController extends BaseController
         $comments = $this->model->getCommentsByPost($id);
         $this->commentsByPost = $comments;
 
+        $fullname = $this->model->getUsernameById($id);
+        $this->fullname = $fullname;
+
         if ($this->isPost){
-            $title = $_POST['comment_title'];
+            $title = $_POST['comment_user'];
             if (strlen($title) < 1){
-                $this->setValidationError("comment_title", "Title too short.");
+                $this->setValidationError("comment_user", "Username too short.");
             }
             $content = $_POST['comment_content'];
             if (strlen($content) < 1){

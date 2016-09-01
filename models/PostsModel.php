@@ -43,7 +43,7 @@ class PostsModel extends HomeModel
         return $statement->affected_rows == 1;
     }
 
-    public function edit(int $id, string $title, string $content, string $date, int $user_id) :boolean
+    public function edit(int $id, string $title, string $content, string $date, int $user_id) :bool
     {
         $statement = self::$db->prepare(
             "UPDATE posts SET title = ?, content = ?, date = ?, user_id = ? ".
