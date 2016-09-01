@@ -26,12 +26,10 @@ class HomeModel extends BaseModel
 
     function getCommentsByPost(int $id){
         $statement = self::$db->prepare(
-            "SELECT * ".
-            "FROM comments ".
-            "WHERE comments.id = ?");
+            "SELECT * FROM comments WHERE posts_id = ?");
         $statement->bind_param("i", $id);
         $statement->execute();
-        $result = $statement->get_result()->fetch_assoc();
+        $result = $statement->get_result()->fetch_all(MYSQLI_ASSOC);
         return $result;
     }
 

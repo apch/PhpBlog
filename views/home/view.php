@@ -11,8 +11,8 @@
     <p><?= $this->post['content']; ?></p>
 
     <h2>Comments</h2>
-    <?php foreach ($this->comments as $comm) : ?>
-        <a href="<?=APP_ROOT?>/home/view/<?=$comm['id']?>"><?= htmlentities($comm['title']); ?></a>
+    <?php foreach ($this->commentsByPost as $comment) : ?>
+        <a href="<?=APP_ROOT?>/home/view/<?=$comment['id']?>"><?= htmlentities($comment['title']); ?></a>
     <?php endforeach; ?>
 
     <div>Leave comment</div>

@@ -5,7 +5,7 @@ class HomeController extends BaseController
     function index() {
         $posts = $this->model->getLatestPosts(5);
         $this->postsSidebar = $posts;
-        $this->posts = array_splice($posts, 0, 3);       
+        $this->posts = array_splice($posts, 0, 3);
     }
 	
 	function view(int $id) {
@@ -18,8 +18,8 @@ class HomeController extends BaseController
             $this->redirect('');
         }
 
-        $comments_by_post = $this->model->getCommentsByPost($id);
-        $this->comments = $comments_by_post;
+        $comments = $this->model->getCommentsByPost($id);
+        $this->commentsByPost = $comments;
 
         if ($this->isPost){
             $title = $_POST['comment_title'];
@@ -35,6 +35,9 @@ class HomeController extends BaseController
                 $userId = $_SESSION['user_id'];
                 if ($this->model->createComment($title, $content, $userId, $id)){
                     $this->addInfoMessage("Comment created.");
+
+                    $comments = $this->model->getCommentsByPost($id);
+                    $this->commentsByPost = $comments;
                 }
                 else{
                     $this->addErrorMessage("Error: cannot create comment.");

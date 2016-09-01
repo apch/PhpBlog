@@ -1,11 +1,20 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 
 <head>
     <link rel="stylesheet" href="<?=APP_ROOT?>/content/styles.css" />
     <link rel="icon" href="<?=APP_ROOT?>/content/images/favicon.ico" />
     <script src="<?=APP_ROOT?>/content/scripts/jquery-3.0.0.min.js"></script>
     <script src="<?=APP_ROOT?>/content/scripts/blog-scripts.js"></script>
+    <script src="<?=APP_ROOT?>/content/tinymce/tinymce.min.js"></script>
+    <script>
+        tinymce.init({
+            selector: 'textarea',  // change this value according to your HTML
+            width: 600,
+            height: 300,
+            toolbar: 'undo redo | styleselect | bold italic | link image',
+        });
+    </script>
     <title><?php if (isset($this->title)) echo htmlspecialchars($this->title) ?></title>
 </head>
 
