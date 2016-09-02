@@ -5,6 +5,7 @@
             <th>Title</th>
             <th>Content</th>
             <th>Author</th>
+            <th>Category</th>
             <th>Date</th>
             <th>Actions</th>
         </tr
@@ -15,6 +16,7 @@
             <td><?= htmlspecialchars($post['title'])?></td>
             <td><?= cutLongText($post['content'])?></td>
             <td><?= htmlspecialchars($post['full_name'])?></td>
+            <td><?= htmlspecialchars($post['category'])?></td>
             <td><?= htmlspecialchars($post['date'])?></td>
 
             <td>

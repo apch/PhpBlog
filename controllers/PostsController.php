@@ -14,11 +14,14 @@ class PostsController extends BaseController
 
     function create() 
     {
+        $this->categories = $this->model->getAllCategories();
+
         if ($this->isPost){
             $title = $_POST['post_title'];
             if (strlen($title) < 1){
                 $this->setValidationError("post_title", "Title too short.");
             }
+            $categoryId = $_POST['post_category'];
             $content = $_POST['post_content'];
             if (strlen($content) < 1){
                 $this->setValidationError("post_content", "Post content is empty.");
@@ -26,7 +29,7 @@ class PostsController extends BaseController
             
             if ($this->formValid()){
                 $userId = $_SESSION['user_id'];
-                if ($this->model->create($title, $content, $userId)){
+                if ($this->model->create($title, $content, $userId, $categoryId)){
                     $this->addInfoMessage("Post created.");
                     $this->redirect("posts");
                 }
@@ -60,6 +63,9 @@ class PostsController extends BaseController
 
     public function edit(int $id)
     {
+
+        $this->categories = $this->model->getAllCategories();
+
         if ($this->isPost){
             $title = $_POST['post_title'];
             if (strlen($title) < 1){
@@ -79,13 +85,14 @@ class PostsController extends BaseController
             }
 
             $user_id = $_POST['post_user_id'];
+            $category_id = $_POST['post_category'];
 
             if ($user_id <= 0 || $user_id > 1000000){
                 $this->setValidationError('user_id', "Invalid author ID.");
             }
 
             if ($this->formValid()){
-                if ($this->model->edit($id, $title, $content, $date, $user_id)){
+                if ($this->model->edit($id, $title, $content, $date, $user_id, $category_id)){
                     $this->addInfoMessage("Post edited.");
                     $this->redirect("posts");
                 }
