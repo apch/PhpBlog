@@ -4,8 +4,10 @@ class HomeController extends BaseController
 {
     function index() {
         $posts = $this->model->getLatestPosts(5);
+        $categories = $this->model->getCategories();
         $this->postsSidebar = $posts;
         $this->posts = array_splice($posts, 0, 3);
+        $this->categoriesSidebar = $categories;
     }
 	
 	function view(int $id) {

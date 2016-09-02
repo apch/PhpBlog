@@ -2,6 +2,14 @@
 
 class HomeModel extends BaseModel
 {
+    function getCategories()
+    {
+        $statement = self::$db->query(
+            "SELECT * " .
+            "FROM categories ");
+        return $statement->fetch_all(MYSQLI_ASSOC);
+    }
+
     function getLatestPosts(int $maxCount){
         $statement = self::$db->query(
             "SELECT posts.id, title, content, date, full_name ".

@@ -9,9 +9,8 @@
             value="<?=htmlspecialchars($this->post['title'])?>">
     <div>Choose Category:</div>
     <select name="post_category">
-        <option value=""></option>
         <?php foreach ($this->categories as $category) : ?>
-            <option value="<?= htmlspecialchars($category['id'])?>"><?= htmlspecialchars($category['category'])?></option>
+            <option value="<?= htmlspecialchars($category['id'])?>" <?php if ($category['id'] == $this->post['category_id']) { ?>selected<?php } ?>><?= htmlspecialchars($category['category'])?></option>
         <?php endforeach; ?>
     </select>
     <div>Content:</div>
