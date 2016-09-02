@@ -1,3 +1,6 @@
+<?php $this->title = 'Posts'; ?>
+
+<h1><?=htmlspecialchars($this->title)?></h1>
 <main>
     <table>
         <tr>

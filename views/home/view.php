@@ -18,7 +18,7 @@
     <?php endforeach; ?>
 
     <h3>Leave your comment</h3>
-    <form method="post">
+    <form method="post" id="comments-form">
         <div>Your name:</div>
         <input type="text" name="comment_user" <?php if (isset($this->fullname['full_name'])) { ?> value="<?= htmlentities($this->fullname['full_name']); ?>" <?php } ?>>
         <div>Content:</div>
