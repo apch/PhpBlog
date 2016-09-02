@@ -9,7 +9,7 @@
     <?php endforeach; ?>
     <h2>Categories</h2>
     <?php foreach ($this->categoriesSidebar as $category) : ?>
-        <a href="<?=APP_ROOT?>/home/view/<?=$post['id']?>"><?= htmlentities($category['category']); ?></a>
+        <a href="<?=APP_ROOT?>/home/category/<?=$category['id']?>"><?= htmlentities($category['category']); ?></a>
     <?php endforeach; ?>
 </aside>
 

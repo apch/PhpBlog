@@ -54,4 +54,17 @@ class HomeController extends BaseController
         }
     }
 
+    function category(int $id)
+    {
+        $category = $this->model->getCategoryById($id);
+        $this->category = $category;
+        $categoryPosts = $this->model->getPostsByCategory($id);
+        if ($categoryPosts) {
+            $this->categoryPosts = $categoryPosts;
+        } else {
+            $this->addErrorMessage('Error: There are no posts in selected category');
+            $this->redirect('');
+        }
+    }
+
 }

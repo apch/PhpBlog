@@ -2,6 +2,18 @@
 
 class HomeModel extends BaseModel
 {
+    function getCategoryById(int $id)
+    {
+        $statement = self::$db->prepare(
+            "SELECT * " .
+            "FROM categories ".
+            "WHERE categories.id = ? ");
+        $statement->bind_param("i", $id);
+        $statement->execute();
+        $result = $statement->get_result()->fetch_assoc();
+        return $result;
+    }
+
     function getCategories()
     {
         $statement = self::$db->query(
@@ -25,10 +37,25 @@ class HomeModel extends BaseModel
         $statement = self::$db->prepare(
             "SELECT posts.id, title, content, date, full_name ".
             "FROM posts LEFT JOIN users On posts.user_id = users.id ".
-            "WHERE posts.id = ?");
+            "WHERE posts.id = ? ");
         $statement->bind_param("i", $id);
         $statement->execute();
         $result = $statement->get_result()->fetch_assoc();
+        return $result;
+    }
+
+    function getPostsByCategory(int $id){
+        $statement = self::$db->prepare(
+        "SELECT posts.id, title, content, date, full_name, category FROM posts ".
+        "LEFT JOIN users ".
+        "On posts.user_id = users.id ".
+        "LEFT JOIN categories ".
+        "On posts.category_id = categories.id ".
+        "WHERE categories.id = ? ".
+        "ORDER BY date DESC ");
+        $statement->bind_param("i", $id);
+        $statement->execute();
+        $result = $statement->get_result()->fetch_all(MYSQLI_ASSOC);
         return $result;
     }
 
