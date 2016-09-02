@@ -26,6 +26,7 @@
         <a href="<?=APP_ROOT?>/posts">Posts</a>
         <a href="<?=APP_ROOT?>/comments">Comments</a>
         <a href="<?=APP_ROOT?>/posts/create">Create Post</a>
+        <a href="<?=APP_ROOT?>/categories">Categories</a>
         <a href="<?=APP_ROOT?>/users">Users</a>
     <?php else: ?>
         <a href="<?=APP_ROOT?>/users/login">Login</a>
