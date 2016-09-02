@@ -39,11 +39,10 @@ ul#messages li {
     margin: 5px auto;
     text-align: center;
     padding: 5px;
-    border-radius: 5px;
 }
 
 ul#messages li.info {
-    background: #7f7;
+    background: #d6e9c6;
 }
 
 ul#messages li.error {
