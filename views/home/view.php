@@ -9,4 +9,23 @@
         <?= htmlentities($this->post['full_name']); ?>
     </p>
     <p><?= $this->post['content']; ?></p>
+<<<<<<< HEAD
+=======
+
+    <h2>Comments</h2>
+    <?php foreach ($this->commentsByPost as $comment) : ?>
+        <p><i>Posted on</i> <?= htmlentities($comment['date']); ?> <i>by</i> <?= htmlentities($comment['user']); ?></p>
+        <p><?php echo $comment['content']; ?></p>
+        <p>&nbsp;</p>
+    <?php endforeach; ?>
+
+    <h3>Leave your comment</h3>
+    <form method="post" id="comments-form">
+        <div>Your name:</div>
+        <input type="text" name="comment_user" <?php if (isset($this->fullname['full_name'])) { ?> value="<?= htmlentities($this->fullname['full_name']); ?>" <?php } ?>>
+        <div>Content:</div>
+        <textarea rows="10" name="comment_content"></textarea>
+        <div><input type="submit" value="Post comment"></div>
+    </form>
+>>>>>>> origin/master
 </main>
