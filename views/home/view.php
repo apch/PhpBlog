@@ -9,8 +9,6 @@
         <?= htmlentities($this->post['full_name']); ?>
     </p>
     <p><?= $this->post['content']; ?></p>
-<<<<<<< HEAD
-=======
 
     <h2>Comments</h2>
     <?php foreach ($this->commentsByPost as $comment) : ?>
@@ -27,5 +25,4 @@
         <textarea rows="10" name="comment_content"></textarea>
         <div><input type="submit" value="Post comment"></div>
     </form>
->>>>>>> origin/master
 </main>
