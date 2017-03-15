@@ -70,15 +70,15 @@ abstract class BaseController
     }
 
     public function redirect(
-        string $controllerName, string $actionName = null, array $params = null)
+        string $controllerName, string $actionName = null, int $params = null)
     {
         $url = APP_ROOT . '/' . urlencode($controllerName);
         if ($actionName != null) {
             $url .= '/' . urlencode($actionName);
         }
         if ($params != null) {
-            $encodedParams = array_map($params, 'urlencode');
-            $url .= implode('/', $encodedParams);
+            //$encodedParams = array_map($params, 'urlencode');
+            $url .= '/'. urlencode($params);
         }
         $this->redirectToUrl($url);
     }

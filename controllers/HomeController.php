@@ -31,18 +31,22 @@ class HomeController extends BaseController
         }
 
         if ($this->isPost){
-            $user = $_POST['comment_user'];
+            $user = $_SESSION['username'];
             if (strlen($user) < 1){
                 $this->setValidationError("comment_user", "Username too short.");
             }
             $content = $_POST['comment_content'];
+            $user_id = $_SESSION['user_id'];
             if (strlen($content) < 1){
                 $this->setValidationError("comment_content", "Comment content is empty.");
+            } elseif (strlen($content) < 10) {
+                $this->setValidationError("comment_content", "Comment content is too short.");
             }
 
             if ($this->formValid()){
-                if ($this->model->createComment($user, $content, $id)){
+                if ($this->model->createComment($user, $content, $id, $user_id)){
                     $this->addInfoMessage("Comment created.");
+                    $this->redirect("home", "view", $id);
 
                     $comments = $this->model->getCommentsByPost($id);
                     $this->commentsByPost = $comments;

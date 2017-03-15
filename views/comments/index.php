@@ -20,8 +20,10 @@
             <td><?= htmlspecialchars($comment['date'])?></td>
 
             <td>
-                <a href="<?=APP_ROOT?>/comments/edit/<?=$comment['id']?>">[Edit]</a>
-                <a href="<?=APP_ROOT?>/comments/delete/<?=$comment['id']?>">[Delete]</a>
+                <?php if ($_SESSION['user_id'] == $comment['user_id'] || $_SESSION['username'] == 'admin') { ?>
+                    <a href="<?=APP_ROOT?>/comments/edit/<?=$comment['id']?>">[Edit]</a>
+                    <a href="<?=APP_ROOT?>/comments/delete/<?=$comment['id']?>">[Delete]</a>
+                <?php } ?>
             </td>
         </tr>
     <?php endforeach; ?>
