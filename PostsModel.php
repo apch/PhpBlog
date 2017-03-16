@@ -53,12 +53,12 @@ class PostsModel extends HomeModel
         return $statement->affected_rows == 1;
     }
 
-    public function edit(int $id, string $title, string $content, string $date, int $user_id, int $category_id) :bool
+    public function edit(int $id, string $title, string $content, string $date, int $user_id, int $category_id, string $new_picture_url) :bool
     {
         $statement = self::$db->prepare(
-            "UPDATE posts SET title = ?, content = ?, date = ?, user_id = ?, category_id = ? ".
+            "UPDATE posts SET title = ?, content = ?, date = ?, user_id = ?, category_id = ?, picture_url = ? ".
             "WHERE id = ?");
-        $statement->bind_param("sssiii", $title, $content, $date, $user_id, $category_id, $id);
+        $statement->bind_param("sssiisi", $title, $content, $date, $user_id, $category_id, $new_picture_url, $id);
         $statement->execute();
         return $statement->affected_rows >= 0;
     }

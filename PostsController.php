@@ -118,8 +118,34 @@ class PostsController extends BaseController
                 $this->setValidationError('user_id', "Invalid author ID.");
             }
 
+            $new_picture_url = $this->model->getById($id)['picture_url'];
+            if(isset($_FILES)) {
+                if ($_FILES['new_post_picture']['name'] != null) {
+                    $pictureInfo = $_FILES['new_post_picture'];
+                    $type = $pictureInfo['type'];
+                    if ($type != "image/png" && $type != "image/jpeg" && $type != "image/gif") {
+                        $this->addErrorMessage("Error: format now allowed.");
+                        $this->redirect("posts");
+
+                    }
+                    $error = $pictureInfo['error'];
+                    if ($error > 0) {
+                        $this->setValidationError("new_post_picture", "something when wrong with uploading the picture.");
+                    }
+                    $size = $pictureInfo['size'];
+                    if ($size < 0 && $size > 30000) {
+                        $this->setValidationError("new_post_picture", "file size is not in the limit.");
+                    }
+                    $tempName = $pictureInfo['tmp_name'];
+                    $new_picture_url = uniqid() . "_" . $pictureInfo['name'];
+                    move_uploaded_file($tempName,
+                        'content/uploads/postPictures/' . $new_picture_url);
+                }
+            }
+
+
             if ($this->formValid()){
-                if ($this->model->edit($id, $title, $content, $date, $user_id, $category_id)){
+                if ($this->model->edit($id, $title, $content, $date, $user_id, $category_id, $new_picture_url)){
                     $this->addInfoMessage("Post edited.");
                     $this->redirect("posts");
                 }

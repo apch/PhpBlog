@@ -16,7 +16,8 @@
         <div>Content:</div>
         <textarea rows="10" name="post_content"></textarea>
         <div>
-            <input type="file" name="post_picture">
+            <label for="post_picture"><strong>Upload a picture: </strong></label>
+            <input id="post_picture" type="file" name="post_picture">
         </div>
         <div><input type="submit" value="Create post">
             <a href="<?=APP_ROOT?>/posts">[Cancel]</a></div>
