@@ -1,6 +1,7 @@
 <?php
 
 define('APP_ROOT', "");
+define('POSTED_PICTURES', "/content/uploads/postPictures/");
 
 define('DEFAULT_CONTROLLER', 'home');
 define('DEFAULT_ACTION', 'index');

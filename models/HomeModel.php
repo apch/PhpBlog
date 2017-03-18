@@ -14,11 +14,31 @@ class HomeModel extends BaseModel
         return $result;
     }
 
+    function getTagById(int $id)
+    {
+        $statement = self::$db->prepare(
+            "SELECT * " .
+            "FROM tags ".
+            "WHERE tags.id = ? ");
+        $statement->bind_param("i", $id);
+        $statement->execute();
+        $result = $statement->get_result()->fetch_assoc();
+        return $result;
+    }
+
     function getCategories()
     {
         $statement = self::$db->query(
             "SELECT * " .
             "FROM categories ");
+        return $statement->fetch_all(MYSQLI_ASSOC);
+    }
+
+    function getTags()
+    {
+        $statement = self::$db->query(
+            "SELECT * " .
+            "FROM tags ");
         return $statement->fetch_all(MYSQLI_ASSOC);
     }
 
@@ -35,7 +55,7 @@ class HomeModel extends BaseModel
 
     function getPostById(int $id){
         $statement = self::$db->prepare(
-            "SELECT posts.id, title, content, date, full_name ".
+            "SELECT posts.id, title, content, date, full_name, picture_url ".
             "FROM posts LEFT JOIN users On posts.user_id = users.id ".
             "WHERE posts.id = ? ");
         $statement->bind_param("i", $id);
@@ -53,6 +73,23 @@ class HomeModel extends BaseModel
         "On posts.category_id = categories.id ".
         "WHERE categories.id = ? ".
         "ORDER BY date DESC ");
+        $statement->bind_param("i", $id);
+        $statement->execute();
+        $result = $statement->get_result()->fetch_all(MYSQLI_ASSOC);
+        return $result;
+    }
+
+    function getPostsByTag(int $id){
+        $statement = self::$db->prepare(
+            "SELECT * FROM tags_posts ".
+            "LEFT JOIN posts ".
+            "On posts.id = tags_posts.posts_id ".
+            "LEFT JOIN tags ".
+            "On tags.id = tags_posts.tags_id ".
+            "LEFT JOIN users ".
+            "On posts.user_id = users.id ".
+            "WHERE tags.id = ? ".
+            "ORDER BY date DESC ");
         $statement->bind_param("i", $id);
         $statement->execute();
         $result = $statement->get_result()->fetch_all(MYSQLI_ASSOC);

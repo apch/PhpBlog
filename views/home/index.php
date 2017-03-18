@@ -12,6 +12,11 @@
     <?php foreach ($this->categoriesSidebar as $category) : ?>
         <a href="<?=APP_ROOT?>/home/category/<?=$category['id']?>"><?= htmlentities($category['category']); ?></a>
     <?php endforeach; ?>
+    <div>&nbsp;</div>
+    <h2>Tags</h2>
+    <?php foreach ($this->tagsSidebar as $tag) : ?>
+        <a href="<?=APP_ROOT?>/home/tag/<?=$tag['id']?>"><?= htmlentities($tag['name']); ?></a>
+    <?php endforeach; ?>
 </aside>
 
 <main>

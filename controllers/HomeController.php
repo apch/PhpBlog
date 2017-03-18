@@ -5,9 +5,11 @@ class HomeController extends BaseController
     function index() {
         $posts = $this->model->getLatestPosts(5);
         $categories = $this->model->getCategories();
+        $tags = $this->model->getTags();
         $this->postsSidebar = $posts;
         $this->posts = array_splice($posts, 0, 3);
         $this->categoriesSidebar = $categories;
+        $this->tagsSidebar = $tags;
     }
 	
 	function view(int $id) {
@@ -70,5 +72,18 @@ class HomeController extends BaseController
             $this->redirect('');
         }
     }
+
+    function tag(int $id)
+{
+    $tag = $this->model->getTagById($id);
+    $this->tag = $tag;
+    $tagPosts = $this->model->getPostsByTag($id);
+    if ($tagPosts) {
+        $this->tagPosts = $tagPosts;
+    } else {
+        $this->addErrorMessage('Error: There are no posts in selected category');
+        $this->redirect('');
+    }
+}
 
 }

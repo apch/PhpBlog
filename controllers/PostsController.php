@@ -22,6 +22,11 @@ class PostsController extends BaseController
                 $this->setValidationError("post_title", "Title too short.");
             }
             $categoryId = $_POST['post_category'];
+
+            $tags = explode(', ', trim($_POST['post_tags']));
+
+
+
             $content = $_POST['post_content'];
             if (strlen($content) < 1){
                 $this->setValidationError("post_content", "Post content is empty.");
@@ -45,15 +50,32 @@ class PostsController extends BaseController
                 }
                 $tempName = $pictureInfo['tmp_name'];
                 $picture_url = uniqid() . "_" . $pictureInfo['name'];
+                echo $picture_url;
                 move_uploaded_file($tempName,
                     'content/uploads/postPictures/' . $picture_url);
             }
             
             if ($this->formValid()){
                 $userId = $_SESSION['user_id'];
-                if ($this->model->create($title, $content, $userId, $categoryId)){
+                $postId = $this->model->create($title, $content, $userId, $categoryId, $picture_url);
+                if ($postId){
+                    for($i = 0; $i < count($tags); $i++) {
+                        $tag = htmlentities($tags[$i]);
+                        $tagExists = $this->model->getTagByName($tag);
+                        if (!$tagExists){
+                            $tagId = $this->model->insertTag($tag);
+
+                            $this->model->insertTagPost($tagId, $postId);
+                        } elseif ($tagExists) {
+                            $tagId = $tagExists['id'];
+                            $this->model->insertTagPost($tagId, $postId);
+                        }
+
+                    }
+
                     $this->addInfoMessage("Post created.");
-                    $this->redirect("posts");
+                    echo $postId;
+                    //$this->redirect("posts");
                 }
                 else{
                     $this->addErrorMessage("Error: cannot create post.");

@@ -8,6 +8,12 @@
         <i>by</i>
         <?= htmlentities($this->post['full_name']); ?>
     </p>
+
+    <?php if($this->post['picture_url'] != "none" && $this->post['picture_url'] != null): ?>
+        <p><i>Uploaded picture: </i></p>
+        <img class="viewPostPicture" src="<?=POSTED_PICTURES?><?=$this->post['picture_url']?>">
+    <?php endif; ?>
+
     <p><?= $this->post['content']; ?></p>
 
     <h2>Comments</h2>
@@ -18,13 +24,11 @@
     <?php endforeach; ?>
 
     <h3>Leave your comment</h3>
-    <?php if ($this->isLoggedIn) : ?>
-        <form method="post" id="comments-form">
-            <div>Content:</div>
-            <textarea rows="10" name="comment_content"></textarea>
-            <div><input type="submit" value="Post comment"></div>
-        </form>
-    <?php else : ?>
-        <p>Please Login or Register to comment</p>
-    <?php endif ?>
+    <form method="post" id="comments-form">
+        <div>Your name:</div>
+        <input type="text" name="comment_user" <?php if (isset($this->fullname['full_name'])) { ?> value="<?= htmlentities($this->fullname['full_name']); ?>" <?php } ?>>
+        <div>Content:</div>
+        <textarea rows="10" name="comment_content"></textarea>
+        <div><input type="submit" value="Post comment"></div>
+    </form>
 </main>

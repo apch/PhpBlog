@@ -3,7 +3,7 @@
 <h1><?=htmlspecialchars($this->title)?></h1>
 
 <main>
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
 
         <div>Title:</div>
         <input type="text" name="post_title"
@@ -16,9 +16,16 @@
         </select>
         <div>&nbsp;</div>
         <div>Content:</div>
-    <textarea rows="10" name="post_content"
-    ><?=htmlspecialchars($this->post['content'])?></textarea>
-        <div>&nbsp;</div>
+        <textarea rows="10" name="post_content"
+        ><?=htmlspecialchars($this->post['content'])?></textarea>
+        <?php if($this->post['picture_url'] != "none" && $this->post['picture_url'] != null): ?>
+            <p>Uploaded picture: </p>
+            <img class="editPostPicture" src="<?=POSTED_PICTURES?><?=$this->post['picture_url']?>">
+        <?php endif; ?>
+        <div>
+            <label for="post_picture"><strong>Edit picture: </strong></label>
+            <input id="post_picture" type="file" name="new_post_picture">
+        </div>
         <div>Date (yyyy-MM-dd hh:mm:ss):</div>
         <input type="datetime" name="post_date"
                value="<?=htmlspecialchars($this->post['date'])?>">
